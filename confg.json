@@ -6,6 +6,7 @@
     {
       "id": 1,
       "name": "Living Room",
+      "description" : "There is a couch by the door and a TV on the wall",
       "adjacent": {
         "s" : 3,
         "e" : 2
@@ -14,6 +15,7 @@
     {
       "id": 2,
       "name": "Bathroom",
+      "description" : "There is a toilet across from the door and a bath east of the toilet.",
       "adjacent": {
         "w": 1,
         "s": 4
@@ -22,6 +24,7 @@
     {
       "id": 3,
       "name": "Bedroom",
+      "description" : "There is a bed east of the door and a chest of drawers directly across from the bed.",
       "adjacent": {
         "e": 4,
         "n": 1
@@ -30,6 +33,7 @@
     {
       "id": 4,
       "name": "Kitchen",
+      "description" : "There is a refrigerator west of the door and a stove east of the door. ",
       "adjacent": {
         "n": 2,
         "w": 3

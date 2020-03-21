@@ -24,6 +24,9 @@ rl.on("line", function(command) {
         case "w":
             moveDirection(command);
             break;
+        case "look":
+            showRoom();
+            break;
         default:
             console.log(`Unrecognized command: ${command}`);
             break;
@@ -61,6 +64,7 @@ function showRoom() {
     const room = getRoomById(currentRoomId);
     const directions = getRoomDirections(room);
     console.log(`You are in the ${room.name}`);
+    console.log(room.description);
     console.log(`Directions you can go: ${directions.join(", ")}`);
 }
 
