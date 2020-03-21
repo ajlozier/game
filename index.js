@@ -27,6 +27,9 @@ rl.on("line", function(command) {
         case "look":
             showRoom();
             break;
+        case "quit":
+            rl.close();
+            break;
         default:
             console.log(`Unrecognized command: ${command}`);
             break;
