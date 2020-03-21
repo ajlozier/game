@@ -1,0 +1,39 @@
+{
+  "gameName" : "Hunt For The Gold",
+  "directions" : "Use the commands n, s, e, w to move through the game.",
+  "startingRoomId" : 4,
+  "rooms": [
+    {
+      "id": 1,
+      "name": "Living Room",
+      "adjacent": {
+        "s" : 3,
+        "e" : 2
+      }
+    },
+    {
+      "id": 2,
+      "name": "Bathroom",
+      "adjacent": {
+        "w": 1,
+        "s": 4
+      }
+    },
+    {
+      "id": 3,
+      "name": "Bedroom",
+      "adjacent": {
+        "e": 4,
+        "n": 1
+      }
+    },
+    {
+      "id": 4,
+      "name": "Kitchen",
+      "adjacent": {
+        "n": 2,
+        "w": 3
+      }
+    }
+  ]
+}
