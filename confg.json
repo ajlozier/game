@@ -1,21 +1,41 @@
 {
-  "gameName" : "Hunt For The Gold",
-  "directions" : "Use the commands n, s, e, w to move through the game.",
-  "startingRoomId" : 4,
+  "gameName": "Hunt For The Gold",
+  "directions": "Use the commands n, s, e, w to move through the game.",
+  "startingRoomId": 4,
   "rooms": [
     {
       "id": 1,
       "name": "Living Room",
-      "description" : "There is a couch by the door and a TV on the wall",
+      "description": "There is a couch by the door and a TV on the wall. There is a book on the floor.",
       "adjacent": {
-        "s" : 3,
-        "e" : 2
-      }
+        "s": 3,
+        "e": 2
+      },
+      "objects": [
+        {
+          "id": 1,
+          "name": "book",
+          "description": "Old book titled 'Moby Dick' with damaged pages and cover.",
+          "pickUp": true
+        },
+        {
+          "id": 2,
+          "name": "couch",
+          "description": "Just an old dusty couch",
+          "pickUp": false
+        },
+        {
+          "id": 3,
+          "name": "TV",
+          "description": "A nice, 60 inch flat screen mounted on the wall",
+          "pickUp": false
+        }
+      ]
     },
     {
       "id": 2,
       "name": "Bathroom",
-      "description" : "There is a toilet across from the door and a bath east of the toilet.",
+      "description": "There is a toilet across from the door and a bath to the left of the toilet.",
       "adjacent": {
         "w": 1,
         "s": 4
@@ -24,7 +44,7 @@
     {
       "id": 3,
       "name": "Bedroom",
-      "description" : "There is a bed east of the door and a chest of drawers directly across from the bed.",
+      "description": "There is a bed left of the door and a chest of drawers directly across from the bed.",
       "adjacent": {
         "e": 4,
         "n": 1
@@ -33,7 +53,7 @@
     {
       "id": 4,
       "name": "Kitchen",
-      "description" : "There is a refrigerator west of the door and a stove east of the door. ",
+      "description": "There is a refrigerator to the right of the door and a stove to the left of the door. ",
       "adjacent": {
         "n": 2,
         "w": 3
