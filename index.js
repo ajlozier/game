@@ -38,6 +38,9 @@ rl.on("line", function (command) {
         case "pickup":
             pickupObject(parts[1]);
             break;
+        case "inventory":
+            showInventory();
+            break;
         default:
             console.log(`Unrecognized command: ${command}`);
             break;
@@ -50,6 +53,17 @@ rl.on("close", function () {
 });
 
 // Functions
+
+function showInventory() {
+    if (inventory.length > 0) {
+        console.log(`You are carrying: `);
+        for(let i = 0; i < inventory.length; i++) {
+            console.log(inventory[i].description);
+        }
+    } else {
+        console.log(`You do not have anything in your inventory. Use pickup command to pick up objects.`);
+    }
+}
 
 function lookatObject(objectName) {
     const obje = getObjectByName(objectName);
