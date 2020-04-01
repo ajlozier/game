@@ -6,6 +6,7 @@ const rl = readline.createInterface({
 
 const config = require("./confg");
 let currentRoomId;
+let inventory = [];
 
 console.log(`Welcome to ${config.gameName}!`);
 console.log(config.directions);
@@ -34,6 +35,9 @@ rl.on("line", function (command) {
         case "lookat":
             lookatObject(parts[1]);
             break;
+        case "pickup":
+            pickupObject(parts[1]);
+            break;
         default:
             console.log(`Unrecognized command: ${command}`);
             break;
@@ -56,8 +60,25 @@ function lookatObject(objectName) {
     }
 }
 
+function pickupObject(objectName) {
+    const obje = getObjectByName(objectName);
+    if (obje) {
+        if (obje.pickUp) {
+            inventory.push(obje);
+            console.log(`You picked up the ${obje.name}.`);
+        } else {
+            console.log(`You cannot pick up the ${obje.name}.`);
+        }
+    } else {
+        console.log(`There is no ${objectName} in this room`);
+    }
+}
+
 function getObjectByName(objectName) {
     const room = getRoomById(currentRoomId);
+    if(!room.objects) {
+        return false;
+    }
     for (let i = 0; i < room.objects.length; i++) {
         if (room.objects[i].name === objectName) {
             return room.objects[i];
