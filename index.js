@@ -65,6 +65,7 @@ function pickupObject(objectName) {
     if (obje) {
         if (obje.pickUp) {
             inventory.push(obje);
+            deleteObjectByName(objectName);
             console.log(`You picked up the ${obje.name}.`);
         } else {
             console.log(`You cannot pick up the ${obje.name}.`);
@@ -72,6 +73,20 @@ function pickupObject(objectName) {
     } else {
         console.log(`There is no ${objectName} in this room`);
     }
+}
+
+function deleteObjectByName(objectName) {
+    const room = getRoomById(currentRoomId);
+    if(!room.objects) {
+        return false;
+    }
+    for (let i = 0; i < room.objects.length; i++) {
+        if (room.objects[i].name === objectName) {
+            room.objects.splice(i, 1);
+            return true;
+        }
+    }
+    return false;
 }
 
 function getObjectByName(objectName) {
@@ -112,6 +127,13 @@ function showRoom() {
     const directions = getRoomDirections(room);
     console.log(`You are in the ${room.name}`);
     console.log(room.description);
+    if (room.objects) {
+        for(let i = 0; i < room.objects.length; i++) {
+            if (room.objects[i].roomDescription) {
+                console.log(room.objects[i].roomDescription);
+            }
+        }
+    }
     console.log(`Directions you can go: ${directions.join(", ")}`);
 }
 
