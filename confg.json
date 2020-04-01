@@ -6,7 +6,7 @@
     {
       "id": 1,
       "name": "Living Room",
-      "description": "There is a couch by the door and a TV on the wall. There is a book on the floor.",
+      "description": "There is a couch by the door and a TV on the wall.",
       "adjacent": {
         "s": 3,
         "e": 2
@@ -16,6 +16,7 @@
           "id": 1,
           "name": "book",
           "description": "Old book titled 'Moby Dick' with damaged pages and cover.",
+          "roomDescription": "There is a book on the floor.",
           "pickUp": true
         },
         {
