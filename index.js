@@ -8,13 +8,13 @@ const config = require("./confg");
 let currentRoomId;
 let inventory = [];
 
-console.log(`Welcome to ${config.gameName}!`);
-console.log(config.directions);
+print(`Welcome to ${config.gameName}!`);
+print(config.directions);
 
 rl.question("What is your name ? ", function (name) {
     currentRoomId = config.startingRoomId;
-    showRoom()
-    //rl.close();
+    showRoom();
+    rl.prompt();
 });
 
 rl.on("line", function (command) {
@@ -42,35 +42,40 @@ rl.on("line", function (command) {
             showInventory();
             break;
         default:
-            console.log(`Unrecognized command: ${command}`);
+            print(`Unrecognized command: ${command}`);
             break;
     }
+    rl.prompt();
 });
 
 rl.on("close", function () {
-    console.log("\nGAME OVER");
+    print("\nGAME OVER");
     process.exit(0);
 });
 
 // Functions
 
+function print(str) {
+    console.log(str);
+}
+
 function showInventory() {
     if (inventory.length > 0) {
-        console.log(`You are carrying: `);
+        print(`You are carrying: `);
         for(let i = 0; i < inventory.length; i++) {
-            console.log(inventory[i].description);
+            print(inventory[i].description);
         }
     } else {
-        console.log(`You do not have anything in your inventory. Use pickup command to pick up objects.`);
+        print(`You do not have anything in your inventory. Use pickup command to pick up objects.`);
     }
 }
 
 function lookatObject(objectName) {
     const obje = getObjectByName(objectName);
     if (obje) {
-        console.log(obje.description);
+        print(obje.description);
     } else {
-        console.log(`There is no ${objectName} in this room`);
+        print(`There is no ${objectName} in this room`);
     }
 }
 
@@ -80,12 +85,12 @@ function pickupObject(objectName) {
         if (obje.pickUp) {
             inventory.push(obje);
             deleteObjectByName(objectName);
-            console.log(`You picked up the ${obje.name}.`);
+            print(`You picked up the ${obje.name}.`);
         } else {
-            console.log(`You cannot pick up the ${obje.name}.`);
+            print(`You cannot pick up the ${obje.name}.`);
         }
     } else {
-        console.log(`There is no ${objectName} in this room`);
+        print(`There is no ${objectName} in this room`);
     }
 }
 
@@ -120,7 +125,7 @@ function moveDirection(direction) {
     const room = getRoomById(currentRoomId);
     const directions = getRoomDirections(room);
     if (directions.indexOf(direction) === -1) {
-        console.log(`You can't go that way.`);
+        print(`You can't go that way.`);
     } else {
         currentRoomId = room.adjacent[direction];
         showRoom();
@@ -139,16 +144,16 @@ function getRoomById(roomId) {
 function showRoom() {
     const room = getRoomById(currentRoomId);
     const directions = getRoomDirections(room);
-    console.log(`You are in the ${room.name}`);
-    console.log(room.description);
+    print(`You are in the ${room.name}`);
+    print(room.description);
     if (room.objects) {
         for(let i = 0; i < room.objects.length; i++) {
             if (room.objects[i].roomDescription) {
-                console.log(room.objects[i].roomDescription);
+                print(room.objects[i].roomDescription);
             }
         }
     }
-    console.log(`Directions you can go: ${directions.join(", ")}`);
+    print(`Directions you can go: ${directions.join(", ")}`);
 }
 
 function getRoomDirections(room) {
