@@ -41,6 +41,9 @@ rl.on("line", function (command) {
         case "inventory":
             showInventory();
             break;
+        case "drop":
+            dropObject(parts[1]);
+            break;
         default:
             print(`Unrecognized command: ${command}`);
             break;
@@ -57,6 +60,18 @@ rl.on("close", function () {
 
 function print(str) {
     console.log(str);
+}
+
+function dropObject(objectName)  {
+    const objectInInventory = getObjectByName(objectName, inventory);
+    if (objectInInventory) {
+        deleteObjectByName(objectName, inventory);
+        const room = getRoomById(currentRoomId);
+        room.objects.push(objectInInventory);
+        print(`You have dropped ${objectName}.`);
+    } else {
+        print(`This object is not in your inventory.`);
+    }
 }
 
 function showInventory() {
@@ -94,28 +109,36 @@ function pickupObject(objectName) {
     }
 }
 
-function deleteObjectByName(objectName) {
-    const room = getRoomById(currentRoomId);
-    if(!room.objects) {
-        return false;
+function deleteObjectByName(objectName, objects) {
+    if (!objects) {
+        const room = getRoomById(currentRoomId);
+        if (!room.objects) {
+            return false;
+        } else {
+            objects = room.objects;
+        }
     }
-    for (let i = 0; i < room.objects.length; i++) {
-        if (room.objects[i].name === objectName) {
-            room.objects.splice(i, 1);
+    for (let i = 0; i < objects.length; i++) {
+        if (objects[i].name === objectName) {
+            objects.splice(i, 1);
             return true;
         }
     }
     return false;
 }
 
-function getObjectByName(objectName) {
-    const room = getRoomById(currentRoomId);
-    if(!room.objects) {
-        return false;
+function getObjectByName(objectName, objects) {
+    if(!objects) {
+        const room = getRoomById(currentRoomId);
+        if (!room.objects) {
+            return false;
+        } else {
+            objects = room.objects;
+        }
     }
-    for (let i = 0; i < room.objects.length; i++) {
-        if (room.objects[i].name === objectName) {
-            return room.objects[i];
+    for (let i = 0; i < objects.length; i++) {
+        if (objects[i].name === objectName) {
+            return objects[i];
         }
     }
     return false;
@@ -135,6 +158,10 @@ function moveDirection(direction) {
 function getRoomById(roomId) {
     for (let i = 0; i < config.rooms.length; i++) {
         if (config.rooms[i].id === roomId) {
+            // Make sure room has objects array
+            if (!config.rooms[i].objects) {
+               config.rooms[i].objects = [];
+            }
             return config.rooms[i];
         }
     }
