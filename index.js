@@ -13,9 +13,21 @@ print(config.directions);
 
 rl.question("What is your name ? ", function (name) {
     currentRoomId = config.startingRoomId;
+    showHelp();
     showRoom();
     rl.prompt();
 });
+
+const help = `
+    n,s,e,w : Move north, south, east or west
+    look : Look at room
+    lookat <object> : Look at object in room
+    pickup <object> : Pick up object in room
+    inventory : Show inventory
+    drop <object> : Drop object in inventory
+    help : Show this help
+    quit : Quit game
+`;
 
 rl.on("line", function (command) {
     const parts = command.split(" ");
@@ -44,6 +56,9 @@ rl.on("line", function (command) {
         case "drop":
             dropObject(parts[1]);
             break;
+        case "help":
+            showHelp();
+            break;
         default:
             print(`Unrecognized command: ${command}`);
             break;
@@ -57,6 +72,10 @@ rl.on("close", function () {
 });
 
 // Functions
+
+function showHelp() {
+    print(help);
+}
 
 function print(str) {
     console.log(str);
